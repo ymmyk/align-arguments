@@ -8,7 +8,6 @@ class _AbstractBaseCommand(sublime_plugin.TextCommand):
       start, end = find_arguments_region(edit, self.view, region.b)
       region = sublime.Region(start, end)
       data = self.view.substr(region)
-      nfix = aa_settings.get("nfix", "")
       indent = " " * self.view.rowcol(start)[1]
       updated = self.process(data, indent)
       self.view.replace(edit, region, updated)
