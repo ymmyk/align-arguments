@@ -77,7 +77,9 @@ def format_arguments(data, indent, line_length_limit, one_per_line, nfix):
       lines.append(indent + ', '.join(accumulator))
     else:
       lines.append(', '.join(accumulator))
-  lines[-1] += nfix
+  if len(lines):
+    lines[0] += nfix + lines[0]
+    lines[-1] += nfix
   return "\n".join(lines)
 
 
