@@ -8,13 +8,15 @@ class _AbstractBaseCommand(sublime_plugin.TextCommand):
       start, end = find_arguments_region(edit, self.view, region.b)
       region = sublime.Region(start, end)
       data = self.view.substr(region)
+      nfix = aa_settings.get("nfix", "")
       indent = " " * self.view.rowcol(start)[1]
       updated = self.process(data, indent)
       self.view.replace(edit, region, updated)
 
 class IndentArgumentsCommand(_AbstractBaseCommand):
   def process(self, data, indent):
-    return indent_arguments(data, indent)
+    nfix = aa_settings.get("nfix", "")
+    return indent_arguments(data, indent + nfix)
 
 class FormatArgumentsCommand(_AbstractBaseCommand):
   def process(self, data, indent):
