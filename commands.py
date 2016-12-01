@@ -23,6 +23,7 @@ class FormatArgumentsCommand(_AbstractBaseCommand):
 
     aa_settings = settings.get("align_arguments", {})
     line_length = aa_settings.get("line_length",
-                                  rulers[0] if rulers else 80)
+                                  rulers[-1] if rulers else 80)
     opl = aa_settings.get("one_per_line", False)
-    return format_arguments(data, indent, line_length, opl)
+    nfix = aa_settings.get("nfix", "")
+    return format_arguments(data, indent, line_length, opl, nfix)
