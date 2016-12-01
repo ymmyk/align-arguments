@@ -52,11 +52,12 @@ def indent_arguments(data, indent):
   result = [lines[0]] + [indent + l.strip() for l in lines[1:]]
   return "\n".join(result)
 
-def format_arguments(data, indent, line_length_limit, one_per_line):
+def format_arguments(data, indent, line_length_limit, one_per_line, nfix):
   print(line_length_limit - len(indent))
   arguments = smart_split(',', data)
   lines = []
   accumulator = []
+  indent = nfix + indent
   for i, argument in enumerate(arguments):
     new_line = ', '.join(accumulator + [argument.strip()])
     print(i, ':', argument.strip(), '-', new_line, '-', len(new_line))
@@ -76,6 +77,7 @@ def format_arguments(data, indent, line_length_limit, one_per_line):
       lines.append(indent + ', '.join(accumulator))
     else:
       lines.append(', '.join(accumulator))
+  lines[-1] += nfix
   return "\n".join(lines)
 
 
